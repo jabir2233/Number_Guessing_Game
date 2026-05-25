@@ -1,11 +1,11 @@
 import random
 from flask import Flask, render_template, request, session, redirect
 
-Game = Flask(__name__)
-Game.secret_key = 'Jabir2233'
+app = Flask(__name__)
+app.secret_key = 'Jabir2233'
 
 
-@Game.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def home():
     #Debug
 
@@ -326,4 +326,4 @@ def error_session():
 
 
 if __name__ == "__main__":
-    Game.run()
+    app.run(debug=True)
