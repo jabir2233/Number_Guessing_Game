@@ -326,4 +326,4 @@ def error_session():
 
 
 if __name__ == "__main__":
-    Game.run(debug=True)
+    Game.run()
