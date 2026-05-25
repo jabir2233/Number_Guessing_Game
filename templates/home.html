@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+  <title>Number Guessing Game</title>
+</head>
+<body>
+  <h1>Number Guessing Game</h1>
+  <div class="container">
+  
+    <h3>{{ text_h | safe }}</h3>
+    <div class="divider-line"></div>
+    
+    <p class="text">{{ text_p | safe }}</p>
+  </div>
+  
+  <form method="post">
+    {% if state == "menu" %}
+    <button class="button" name="action" value="play">Play</button>
+    {% endif %}
+    
+    {% if state == "playing" %}
+    <input name="guess" type="number" placeholder="Enter Your Guess? e.g.50"></input>
+    <button class="button" name="action" value="submit">Submit</button>
+    {% endif %}
+    
+    {% if state == "playing" or state == "result" %}
+    <button class="button_h" name="action" value="restart">Restart</button>
+    <button class="button_h" name="action" value="menu">Main Menu</button>
+    {% endif %}
+    
+  </form>
+</body>
+</html>
