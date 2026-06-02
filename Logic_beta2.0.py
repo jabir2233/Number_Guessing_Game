@@ -1,7 +1,5 @@
 import random
-
-global number
-global guess
+import os
 
 #<======>Hint Checker<======>#
 def is_prime(num):
@@ -123,9 +121,10 @@ def mathmatical_hint():
     math_hint = []
     math_hint= math_hint_taker()
     
-    print(math_hint)
-    
     random.shuffle(math_hint)
+    
+    main_hint= list(math_hint)
+    
     hint = []
 
     for i in range(3): 
@@ -147,7 +146,7 @@ def mathmatical_hint():
     confusion_hint = math_hint
     math_hint = hint
     
-    return math_hint, confusion_hint
+    return main_hint, math_hint, confusion_hint
 
 def converter(list):
     text = ""
@@ -165,16 +164,16 @@ def converter(list):
             pass
     return(text)
 
-def hint_organizer():
+def hint_organizer(number):
     hint_type = {
                         "hint_1": "propertical",
                         "hint_2": "confusional",
                         "hint_3": "propertical",
                         "hint_4": "mathmatical",
-                        "hint_5": "tricky"
+                        "hint_5": "propertical"
     }
     
-    math_hint, confusion_hint = mathmatical_hint()
+    main_hint, math_hint, confusion_hint = mathmatical_hint()
     
     txt = None #Will Be Used To Print
     confusion_hint, txt= confusional_hint(confusion_hint)
@@ -186,17 +185,15 @@ def hint_organizer():
     text= converter(list=confusion_hint)
     text= f"•{txt}\n  Hint:\n   {text}"
     hint_type["hint_2"]= text
-
+    
+#Main vs Mathmatical vs Confuisonal List
+    return main_hint, math_hint, confusion_hint
+    
 #===Below Function Is Just A Demo===#
     c=1
     for type in hint_type:
-        print("_"*40)
+        print("_"*42)
         print(f"  {hint_type[f"hint_{c}"]}")
         c+=1
-        print("_"*40)
+        print("_"*42)
 #===Avobe Function Is Just A Demo===#
-
-while True:
-    number = int(input("Enter The Number To Use\n  >>>").strip())
-    guess = 37
-    hint_organizer()
