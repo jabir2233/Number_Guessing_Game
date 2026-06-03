@@ -1,4 +1,4 @@
-from candidate_generator import hint_organizer
+from candidate_generator_beta import hint_organizer
 from candidate_checker import hint_grader
 import random
 
