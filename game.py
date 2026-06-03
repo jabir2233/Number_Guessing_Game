@@ -1,4 +1,5 @@
 import random
+from candidate_generator import hint_organizer
 from flask import Flask, render_template, request, session, redirect
 
 app = Flask(__name__)
@@ -117,74 +118,27 @@ def workflow():
 
 
 #---------- Final Hint ----------#
-
-# Function to check if a number is prime
-def is_prime(num):
-    if num < 2:
-        return False
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
-            return False
-    return True
-
-def is_even(num):
-    if num % 2 == 0:
-        return True
-    else:
-        return False
-        
 def divisible_by(num):
-    hint = [ ]
+    hint = ""
     divisible_by = []
     for i in [2, 3, 5, 7]:
         if num % i == 0:
             divisible_by.append(str(i))
-    if divisible_by:
-        hint.append(f"divisible by {' and '.join(divisible_by)}")
+    if len(divisible_by) > 0:
+        hint= hint + (f"<br>Divisible by {' and '.join(divisible_by)}<br>")
+        
+    else:
+        hint= "<br>"
         
     return hint
     
-def perfect_square(num):
-    if int(num**0.5) ** 2 == num:
-        return True
-    else:
-        return False
-    
-def fibonacci_number(num):
-    a, b= 0, 1
-    while b < num:
-        a, b= b, a+b
-    return b==num or num==0
-    
 # Function to generate a detailed hint based on number properties
 def get_final_hint(number):
-    hint = [ ]
-
-    # Even or Odd Hint
-    if is_even(number):
-        hint.append("even")
-        print("Even Number")
-    else:
-        hint.append("odd")
-        print("Odd Number")
-
-    # Prime Number Hint
-    if is_prime(number):
-        hint.append("prime")
-        print("Prime Number")
-        
-    #Fibonacci Number Hint
-    if fibonacci_number(number):
-        hint.append("fibonacci number")
-        print("Fibonacci Number")
+    hint = ""
     
-    #Perfrct Square Hint
-    if perfect_square(number):
-        hint.append("perfect square")
-        print("The Number is Perfect Square")
-
-    # Divisibility Hint
-    hint.append(divisible_by(number))
+    hint= hint_organizer(number)   
+    
+    hint=(divisible_by(number)) + hint
     
     return hint
 #---------- GAME LOGIC ----------#          

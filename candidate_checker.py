@@ -70,13 +70,67 @@ def Difficulty_Check(subject, baseline):
     return benchmark
     
 
+def Pair_Rearranger(pairs):
+    new_pairs = [] #list of blank pair
+    
+    for a, b in pairs:
+        current_pair= (a, b)
+        reversed_pair= (b, a)
+        
+        if a== "Prime" and b== "Even":
+            new_pairs.append(reversed_pair)
+            print("Pair Is Rearranged in Correct Order")
+            
+        elif b== "Even" and a== "Fibonacci Number":
+            new_pairs.append(reversed_pair)
+            print("Pair Is Rearranged in Correct Order")
+            
+        elif b== "Even" and a== "Perfect Square":
+            new_pairs.append(reversed_pair)
+            print("Pair Is Rearranged in Correct Order")
+            
+        elif b== "Prime" and a== "Fibonacci Number":
+            new_pairs.append(reversed_pair)
+            print("Pair Is Rearranged in Correct Order")
+            
+        elif b== "Prime" and a== "Perfect Square":
+            new_pairs.append(reversed_pair)
+            print("Pair Is Rearranged in Correct Order")
+            
+        elif b== "Fibonacci Number" and a== "Perfect Square":
+            new_pairs.append(reversed_pair)
+            print("Pair Is Rearranged in Correct Order")
+            
+        else:
+            new_pairs.append(current_pair)
+            print("Pair Is In Correct Order!")
+            
+        return new_pairs
+
 def Pair_Check(subject):
     benchmark= 0
     pairs= []
     
+    if len(subject) < 1:
+        benchmark= 0
+        return benchmark
+        
+    if len(subject) < 2:
+        benchmark= 4
+        return benchmark
+        
+    if len(subject) == 2:
+        benchmark= 5
+        return benchmark
+        
     pairs= Pair_Generator(dict=subject)
     
-    #print(pairs)
+    new_pairs= Pair_Rearranger(pairs)
+    pairs= new_pairs
+    
+    print(pairs)
+    
+    pair_count= 0
     
     for a, b in pairs:
         score= 0
@@ -84,6 +138,7 @@ def Pair_Check(subject):
         val_a= subject[a]
         val_b= subject[b]
         
+        pair_count += 1
         #print(val_a, val_b)
         
         if a == "Even" and b == "Prime":
@@ -146,12 +201,15 @@ def Pair_Check(subject):
             
         benchmark += pair_score
     
+    mark= benchmark/pair_count
+    benchmark= mark
+    
     return benchmark
 
-def main():
-    main = ["Odd", "Prime", "Fibonacci Number", "Not Perfect Square"]
-    confusion= ["Even", "Not Fibonacci Number"]
-    mathmatical= ["Not Perfect Square", "Odd", "Prime"]
+def hint_grader(main_hint, math_hint, confusion_hint):
+    main= main_hint
+    confusion= confusion_hint
+    mathmatical= math_hint
     
     main_bool = Converter(list=main)
     conf_bool = Converter(list=confusion)
@@ -159,17 +217,16 @@ def main():
     
     #<======>Checker<======>
     mark1= Sanity_Check(subject=main, baseline=mathmatical)
-    print("•Mark-1: Sanity Check:", mark1)
+  #print("•Mark-1: Sanity Check:", mark1)
     
     mark2= Difficulty_Check(subject=math_bool, baseline=conf_bool)
-    print("•Mark-2: Dificulty Check:", mark2)
+   #print("•Mark-2: Dificulty Check:", mark2)
     
     mark3= Pair_Check(subject=conf_bool)
-    print("•Mark-3: Pair Evaluation Check:", mark3)
+   #print("•Mark-3: Pair Evaluation Check:", mark3)
     
-    print()
-    print("—"*40)
-    print(f"\n •Main List Bool: {main_bool}\n •Mathmatical Bool:{math_bool}\n •Confusional Bool:{conf_bool}")
+    return mark1, mark2, mark3
+   #print()
+   #print("—"*40)
+   #print(f"\n •Main List Bool: {main_bool}\n •Mathmatical Bool:{math_bool}\n •Confusional Bool:{conf_bool}")
     #print(f"\n Math List: {mathmatical}\n Confusional List: {confusion}")
-    
-main()

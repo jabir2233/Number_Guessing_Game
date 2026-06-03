@@ -39,7 +39,7 @@ def fibonacci_number(num):
         a, b= b, a+b
     return b==num or num==0
     
-def math_hint_taker():
+def math_hint_taker(number):
     hint= []
     num= number
     
@@ -116,10 +116,10 @@ def choice(math_hint, hint):
             print("Fallback triggered!")
             return current
 
-def mathmatical_hint():
+def mathmatical_hint(number):
     math_hint = ["Even", "Not Prime", "Not Perfect Square", "Not Fibonacci Number"]
     math_hint = []
-    math_hint= math_hint_taker()
+    math_hint= math_hint_taker(number)
     
     random.shuffle(math_hint)
     
@@ -173,7 +173,7 @@ def hint_organizer(number):
                         "hint_5": "propertical"
     }
     
-    main_hint, math_hint, confusion_hint = mathmatical_hint()
+    main_hint, math_hint, confusion_hint = mathmatical_hint(number)
     
     txt = None #Will Be Used To Print
     confusion_hint, txt= confusional_hint(confusion_hint)
@@ -182,6 +182,7 @@ def hint_organizer(number):
     text= f"•Mathematical Hint:\n  {text}"
     hint_type["hint_4"]= text
     
+    return text
     text= converter(list=confusion_hint)
     text= f"•{txt}\n  Hint:\n   {text}"
     hint_type["hint_2"]= text
